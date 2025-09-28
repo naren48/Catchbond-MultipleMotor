@@ -71,9 +71,10 @@
        close(unit = 43)
 
        !Derived parameters :
-       ks = v0/d
-       bnd = 2*l0/d
-       gm = k_trap/km
+       ks = v0/d                 ! Unloaded stepping rate
+       bnd = 2*l0/d              ! Number of binding sites in the interval
+       gm = k_trap/km            ! Dimensionless trap stiffness
+       w = 1.0                   ! Weight factor for load-sharing
 
      !--------------------------------------------------------------------
      !RANDOM NUMBER GENERATOR : Mersenne twister
@@ -227,7 +228,7 @@
 
             !Calculation of Stepping rate:
             if(fb > 0 .and. fb < fs)then
-               ksm = ks*(1 - (fb/fs)**(0.5))
+               ksm = ks*(1 - (fb/fs)**(w))
             else if(fb .ge. fs )then
                ksm = 0
             else if(fb <= 0)then
